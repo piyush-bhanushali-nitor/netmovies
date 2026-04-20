@@ -25,6 +25,20 @@ interface MovieDetails extends Movie {
   runtime: number;
   genres: { id: number; name: string }[];
   backdrop_path: string;
+  vote_count: number;
+}
+
+interface Video {
+  id: string;
+  key: string;
+  name: string;
+  site: string;
+  type: string;
+  official: boolean;
+}
+
+interface Videos {
+  results: Video[];
 }
 
 interface Credits {
@@ -63,4 +77,13 @@ export async function getMovieCredits(id: number): Promise<Credits> {
   return fetchFromTMDB(`/movie/${id}/credits`);
 }
 
-export type { Movie, MovieDetails, CastMember, Credits };
+export async function getMovieVideos(id: number): Promise<Videos> {
+  return fetchFromTMDB(`/movie/${id}/videos`);
+}
+
+export async function getSimilarMovies(id: number): Promise<Movie[]> {
+  const data = await fetchFromTMDB(`/movie/${id}/similar`);
+  return data.results;
+}
+
+export type { Movie, MovieDetails, CastMember, Credits, Video, Videos };
