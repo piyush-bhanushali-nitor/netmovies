@@ -1,4 +1,7 @@
 {
-  "integration": "copilot",
-  "version": "0.7.4.dev0"
+  "integration": "kilocode",
+  "version": "0.7.2",
+  "scripts": {
+    "update-context": ".specify/integrations/kilocode/scripts/update-context.sh"
+  }
 }
