@@ -6,7 +6,7 @@ const Home = () => {
 
   return (
     <div>
-      <h1>Trending Movies</h1>
+      <h1 className="page-title">Trending Now</h1>
       <MovieList movies={movies} loading={loading} error={error} />
     </div>
   );

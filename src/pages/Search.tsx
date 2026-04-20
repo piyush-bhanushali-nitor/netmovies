@@ -13,11 +13,13 @@ const Search = () => {
 
   return (
     <div>
-      <h1>Search Movies</h1>
+      <h1 className="page-title">Search Movies</h1>
       <SearchBar onSearch={handleSearch} />
       {query && (
         <div>
-          <h2>Results for "{query}"</h2>
+          <h2 className="page-title" style={{ fontSize: '1.5rem', marginTop: '2rem' }}>
+            Results for "{query}"
+          </h2>
           <MovieList movies={movies} loading={loading} error={error} />
         </div>
       )}

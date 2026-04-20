@@ -24,6 +24,7 @@ interface CastMember {
 interface MovieDetails extends Movie {
   runtime: number;
   genres: { id: number; name: string }[];
+  backdrop_path: string;
 }
 
 interface Credits {

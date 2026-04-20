@@ -14,16 +14,24 @@ const SearchBar = ({ onSearch }: SearchBarProps) => {
     }
   };
 
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const value = e.target.value;
+    setQuery(value);
+    // Auto-search on input change for better UX
+    if (value.trim()) {
+      onSearch(value.trim());
+    }
+  };
+
   return (
     <form onSubmit={handleSubmit} className="search-bar">
       <input
         type="text"
         value={query}
-        onChange={(e) => setQuery(e.target.value)}
+        onChange={handleChange}
         placeholder="Search for movies..."
         className="search-input"
       />
-      <button type="submit">Search</button>
     </form>
   );
 };

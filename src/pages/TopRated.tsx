@@ -6,7 +6,7 @@ const TopRated = () => {
 
   return (
     <div>
-      <h1>Top Rated Movies</h1>
+      <h1 className="page-title">Top Rated Movies</h1>
       <MovieList movies={movies} loading={loading} error={error} />
     </div>
   );

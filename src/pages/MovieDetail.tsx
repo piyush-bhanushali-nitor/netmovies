@@ -15,33 +15,52 @@ const MovieDetail = () => {
     return <div className="error">{error || 'Movie not found'}</div>;
   }
 
+  const backdropUrl = movie.backdrop_path
+    ? `https://image.tmdb.org/t/p/original${movie.backdrop_path}`
+    : `https://image.tmdb.org/t/p/w500${movie.poster_path}`;
+
   return (
-    <div>
-      <h1>{movie.title}</h1>
-      {movie.poster_path && (
+    <div className="movie-detail">
+      <div
+        className="movie-backdrop"
+        style={{ backgroundImage: `url(${backdropUrl})` }}
+      />
+      <div className="movie-content">
         <img
           src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
           alt={movie.title}
-          className="movie-poster"
+          className="movie-poster-large"
         />
-      )}
-      <p><strong>Release Date:</strong> {movie.release_date}</p>
-      <p><strong>Rating:</strong> {movie.vote_average}/10</p>
-      <p><strong>Runtime:</strong> {movie.runtime} minutes</p>
-      <p><strong>Genres:</strong> {movie.genres.map(g => g.name).join(', ')}</p>
-      <p><strong>Overview:</strong> {movie.overview}</p>
-      {credits && credits.cast.length > 0 && (
-        <div>
-          <h2>Cast</h2>
-          <ul>
-            {credits.cast.slice(0, 10).map((actor: any) => (
-              <li key={actor.id}>
-                {actor.name} as {actor.character}
-              </li>
+        <div className="movie-details-info">
+          <h1>{movie.title}</h1>
+          <div className="movie-meta">
+            <span className="movie-rating">★ {movie.vote_average.toFixed(1)}</span>
+            <span>{movie.release_date ? new Date(movie.release_date).getFullYear() : 'N/A'}</span>
+            <span>{movie.runtime} min</span>
+          </div>
+          <div className="movie-genres">
+            {movie.genres.map((genre) => (
+              <span key={genre.id} className="genre-tag">
+                {genre.name}
+              </span>
             ))}
-          </ul>
+          </div>
+          <p className="movie-overview">{movie.overview}</p>
+          {credits && credits.cast.length > 0 && (
+            <div className="cast-section">
+              <h2>Cast</h2>
+              <div className="cast-list">
+                {credits.cast.slice(0, 10).map((actor) => (
+                  <div key={actor.id} className="cast-member">
+                    <div className="cast-name">{actor.name}</div>
+                    <div className="cast-character">{actor.character}</div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
         </div>
-      )}
+      </div>
     </div>
   );
 };

@@ -1,3 +1,4 @@
+import { memo } from 'react';
 import MovieCard from './MovieCard';
 import LoadingSpinner from './LoadingSpinner';
 import type { Movie } from '../api/tmdb';
@@ -8,7 +9,7 @@ interface MovieListProps {
   error?: string;
 }
 
-const MovieList = ({ movies, loading, error }: MovieListProps) => {
+const MovieList = memo(({ movies, loading, error }: MovieListProps) => {
   if (loading) {
     return <LoadingSpinner />;
   }
@@ -18,7 +19,12 @@ const MovieList = ({ movies, loading, error }: MovieListProps) => {
   }
 
   if (movies.length === 0) {
-    return <div className="error">No movies found.</div>;
+    return (
+      <div className="no-results">
+        <div className="no-results-icon">🎬</div>
+        <p>No movies found. Try adjusting your search.</p>
+      </div>
+    );
   }
 
   return (
@@ -31,6 +37,8 @@ const MovieList = ({ movies, loading, error }: MovieListProps) => {
       ))}
     </div>
   );
-};
+});
+
+MovieList.displayName = 'MovieList';
 
 export default MovieList;
