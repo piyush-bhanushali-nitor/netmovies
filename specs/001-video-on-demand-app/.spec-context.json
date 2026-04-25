@@ -1,0 +1,10 @@
+{
+  "workflow": "speckit",
+  "specName": "001-video-on-demand-app",
+  "branch": "001-video-on-demand-app",
+  "selectedAt": "2026-04-24T15:38:57.281Z",
+  "currentStep": "specify",
+  "status": "draft",
+  "stepHistory": {},
+  "transitions": []
+}

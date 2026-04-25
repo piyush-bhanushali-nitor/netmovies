@@ -1,6 +1,6 @@
 import { useParams } from 'react-router-dom';
 import LoadingSpinner from '../components/LoadingSpinner';
-import Trailer from '../components/Trailer';
+import MoviePlayer from '../components/MoviePlayer';
 import CastList from '../components/CastList';
 import WatchlistButton from '../components/WatchlistButton';
 import MovieList from '../components/MovieList';
@@ -62,9 +62,7 @@ const MovieDetail = () => {
           <WatchlistButton movieId={movie.id} movieTitle={movie.title} />
           <p className="movie-overview">{movie.overview}</p>
 
-          {videos && videos.results.length > 0 && (
-            <Trailer videos={videos.results} />
-          )}
+          <MoviePlayer tmdbId={movie.id} movieTitle={movie.title} videos={videos?.results} />
 
           {credits && credits.cast.length > 0 && (
             <CastList cast={credits.cast} />

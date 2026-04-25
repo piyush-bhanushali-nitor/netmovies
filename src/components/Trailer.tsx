@@ -70,7 +70,7 @@ const Trailer = ({ videos }: TrailerProps) => {
           </div>
         </div>
       ) : (
-        <div className="trailer-player">
+        <div className="trailer-wrapper">
           <iframe
             src={`https://www.youtube.com/embed/${trailer.key}?autoplay=1`}
             title={trailer.name}

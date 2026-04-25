@@ -1,0 +1,13 @@
+{
+  "workflow": "speckit",
+  "selectedAt": "2026-04-24T17:30:00.000Z",
+  "currentStep": "specify",
+  "status": "active",
+  "specName": "003-responsive-enhancement",
+  "branch": "003-responsive-enhancement",
+  "stepHistory": {
+    "specify": {
+      "startedAt": "2026-04-24T17:30:00.000Z"
+    }
+  }
+}
