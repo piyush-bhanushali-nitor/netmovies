@@ -7,7 +7,7 @@ interface MoviePlayerProps {
   videos?: Video[];
 }
 
-const MoviePlayer = ({ tmdbId, movieTitle, videos }: MoviePlayerProps) => {
+const MoviePlayer = ({ tmdbId, movieTitle }: MoviePlayerProps) => {
   const [playerColor, setPlayerColor] = useState('0dcaf0'); // Default cyan color
 
   // Generate the Vidking embed URL
