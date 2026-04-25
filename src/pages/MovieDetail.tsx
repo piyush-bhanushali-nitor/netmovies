@@ -2,7 +2,6 @@ import { useParams } from 'react-router-dom';
 import LoadingSpinner from '../components/LoadingSpinner';
 import MoviePlayer from '../components/MoviePlayer';
 import CastList from '../components/CastList';
-import WatchlistButton from '../components/WatchlistButton';
 import MovieList from '../components/MovieList';
 import { useMovieDetail } from '../hooks/useMovieDetail';
 
@@ -59,23 +58,22 @@ const MovieDetail = () => {
               </span>
             ))}
           </div>
-          <WatchlistButton movieId={movie.id} movieTitle={movie.title} />
           <p className="movie-overview">{movie.overview}</p>
-
-          <MoviePlayer tmdbId={movie.id} movieTitle={movie.title} videos={videos?.results} />
-
-          {credits && credits.cast.length > 0 && (
-            <CastList cast={credits.cast} />
-          )}
-
-          {similarMovies.length > 0 && (
-            <div className="similar-movies-section">
-              <h2>More Like This</h2>
-              <MovieList movies={similarMovies.slice(0, 12)} />
-            </div>
-          )}
         </div>
       </div>
+
+      <MoviePlayer tmdbId={movie.id} movieTitle={movie.title} videos={videos?.results} />
+
+      {credits && credits.cast.length > 0 && (
+        <CastList cast={credits.cast} />
+      )}
+
+      {similarMovies.length > 0 && (
+        <div className="similar-movies-section">
+          <h2>More Like This</h2>
+          <MovieList movies={similarMovies.slice(0, 12)} />
+        </div>
+      )}
     </div>
   );
 };

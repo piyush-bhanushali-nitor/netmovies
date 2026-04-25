@@ -8,7 +8,6 @@ interface MoviePlayerProps {
 }
 
 const MoviePlayer = ({ tmdbId, movieTitle, videos }: MoviePlayerProps) => {
-  const [showPlayer, setShowPlayer] = useState(false);
   const [playerColor, setPlayerColor] = useState('0dcaf0'); // Default cyan color
 
   // Generate the Vidking embed URL
@@ -52,37 +51,10 @@ const MoviePlayer = ({ tmdbId, movieTitle, videos }: MoviePlayerProps) => {
     { name: 'Pink', value: 'ec4899' },
   ];
 
-  if (!showPlayer) {
-    return (
-      <div className="player-section">
-        <h2>Watch Movie</h2>
-        <div className="player-preview" onClick={() => setShowPlayer(true)}>
-          <div className="player-thumbnail">
-            {videos && videos.length > 0 ? (
-              <img
-                src={`https://img.youtube.com/vi/${videos[0].key}/maxresdefault.jpg`}
-                alt={movieTitle}
-                onError={(e) => {
-                  const target = e.target as HTMLImageElement;
-                  target.src = `https://img.youtube.com/vi/${videos[0].key}/hqdefault.jpg`;
-                }}
-              />
-            ) : (
-              <div className="player-placeholder">
-                <div className="play-icon">▶</div>
-                <p>Click to watch</p>
-              </div>
-            )}
-            <div className="play-button-overlay">
-              <div className="play-button">▶</div>
-            </div>
-          </div>
-          <div className="player-info">
-            <h3>Stream with Vidking</h3>
-            <p>Click to start streaming</p>
-          </div>
-        </div>
-        
+  return (
+    <div className="player-section">
+      <div className="player-header">
+        <h2>Watch {movieTitle}</h2>
         <div className="color-picker">
           <span>Player Color:</span>
           <div className="color-options">
@@ -98,17 +70,6 @@ const MoviePlayer = ({ tmdbId, movieTitle, videos }: MoviePlayerProps) => {
           </div>
         </div>
       </div>
-    );
-  }
-
-  return (
-    <div className="player-section">
-      <div className="player-header">
-        <h2>Now Playing: {movieTitle}</h2>
-        <button className="close-player-btn" onClick={() => setShowPlayer(false)}>
-          × Close
-        </button>
-      </div>
       <div className="video-player-container">
         <iframe
           src={getVidkingUrl()}
@@ -119,20 +80,6 @@ const MoviePlayer = ({ tmdbId, movieTitle, videos }: MoviePlayerProps) => {
           allowFullScreen
           title={movieTitle}
         />
-      </div>
-      <div className="player-controls">
-        <button onClick={() => setPlayerColor('0dcaf0')} className={playerColor === '0dcaf0' ? 'active' : ''}>
-          Default
-        </button>
-        <button onClick={() => setPlayerColor('e50914')} className={playerColor === 'e50914' ? 'active' : ''}>
-          Netflix
-        </button>
-        <button onClick={() => setPlayerColor('9146ff')} className={playerColor === '9146ff' ? 'active' : ''}>
-          Purple
-        </button>
-        <button onClick={() => setShowPlayer(false)} className="close-btn">
-          Close Player
-        </button>
       </div>
     </div>
   );

@@ -55,8 +55,24 @@ async function fetchFromTMDB(endpoint: string): Promise<any> {
 }
 
 export async function getTrendingMovies(): Promise<Movie[]> {
-  const data = await fetchFromTMDB('/trending/movie/week');
+    const data = await fetchFromTMDB('/discover/movie?with_origin=IN&sort_by=popularity.desc&page=1');
+  // const data = await fetchFromTMDB('/trending/movie/week');
   return data.results;
+}
+
+export async function getIndianMovies(): Promise<Movie[]> {
+  // Fetch movies from India (popular Indian movies)
+  const data = await fetchFromTMDB('/discover/movie?with_origin=IN&sort_by=popularity.desc&page=1');
+  return data.results.slice(0, 20);
+}
+
+export async function getMoviesByGenre(genreId: number, region?: string): Promise<Movie[]> {
+  let endpoint = `/discover/movie?with_genres=${genreId}&sort_by=popularity.desc&page=1`;
+  if (region) {
+    endpoint += `&with_origin=${region}`;
+  }
+  const data = await fetchFromTMDB(endpoint);
+  return data.results.slice(0, 20);
 }
 
 export async function getTopRatedMovies(): Promise<Movie[]> {
