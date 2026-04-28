@@ -1,9 +1,4 @@
-const API_BASE_URL = 'https://api.themoviedb.org/3';
-const API_KEY = import.meta.env.VITE_TMDB_API_KEY;
 
-if (!API_KEY) {
-  throw new Error('TMDB API key not found. Please set VITE_TMDB_API_KEY in .env');
-}
 
 interface Movie {
   id: number;
@@ -45,61 +40,69 @@ interface Credits {
   cast: CastMember[];
 }
 
-async function fetchFromTMDB(endpoint: string): Promise<any> {
-  const url = `${API_BASE_URL}${endpoint}${endpoint.includes('?') ? '&' : '?'}api_key=${API_KEY}`;
+
+async function fetchFromProxy(path: string, params?: Record<string, string | number>): Promise<any> {
+  let url = `/api${path}`;
+  if (params) {
+    const search = new URLSearchParams(params as Record<string, string>).toString();
+    url += `?${search}`;
+  }
   const response = await fetch(url);
   if (!response.ok) {
-    throw new Error(`TMDB API error: ${response.status}`);
+    throw new Error(`Proxy API error: ${response.status}`);
   }
   return response.json();
 }
 
+
 export async function getTrendingMovies(): Promise<Movie[]> {
-    const data = await fetchFromTMDB('/discover/movie?with_origin=IN&sort_by=popularity.desc&page=1');
-  // const data = await fetchFromTMDB('/trending/movie/week');
+  const data = await fetchFromProxy('/movies/trending');
   return data.results;
 }
+
 
 export async function getIndianMovies(): Promise<Movie[]> {
-  // Fetch movies from India (popular Indian movies)
-  const data = await fetchFromTMDB('/discover/movie?with_origin=IN&sort_by=popularity.desc&page=1');
-  return data.results.slice(0, 20);
+  // Not implemented in proxy yet
+  return [];
 }
+
 
 export async function getMoviesByGenre(genreId: number, region?: string): Promise<Movie[]> {
-  let endpoint = `/discover/movie?with_genres=${genreId}&sort_by=popularity.desc&page=1`;
-  if (region) {
-    endpoint += `&with_origin=${region}`;
-  }
-  const data = await fetchFromTMDB(endpoint);
-  return data.results.slice(0, 20);
+  // Not implemented in proxy yet
+  return [];
 }
+
 
 export async function getTopRatedMovies(): Promise<Movie[]> {
-  const data = await fetchFromTMDB('/movie/top_rated');
+  const data = await fetchFromProxy('/movies/top-rated');
   return data.results;
 }
+
 
 export async function searchMovies(query: string): Promise<Movie[]> {
-  const data = await fetchFromTMDB(`/search/movie?query=${encodeURIComponent(query)}`);
+  const data = await fetchFromProxy('/movies/search', { query });
   return data.results;
 }
+
 
 export async function getMovieDetails(id: number): Promise<MovieDetails> {
-  return fetchFromTMDB(`/movie/${id}`);
+  return fetchFromProxy('/movies/details', { id });
 }
+
 
 export async function getMovieCredits(id: number): Promise<Credits> {
-  return fetchFromTMDB(`/movie/${id}/credits`);
+  return fetchFromProxy('/movies/credits', { id });
 }
+
 
 export async function getMovieVideos(id: number): Promise<Videos> {
-  return fetchFromTMDB(`/movie/${id}/videos`);
+  return fetchFromProxy('/movies/videos', { id });
 }
 
+
 export async function getSimilarMovies(id: number): Promise<Movie[]> {
-  const data = await fetchFromTMDB(`/movie/${id}/similar`);
-  return data.results;
+  // Not implemented in proxy yet
+  return [];
 }
 
 export type { Movie, MovieDetails, CastMember, Credits, Video, Videos };
