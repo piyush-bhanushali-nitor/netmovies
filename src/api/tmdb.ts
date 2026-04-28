@@ -63,14 +63,16 @@ export async function getTrendingMovies(): Promise<Movie[]> {
 
 export async function getIndianMovies(): Promise<Movie[]> {
   // Not implemented in proxy yet
+  console.log('getIndianMovies called');
   return [];
 }
 
 
-// export async function getMoviesByGenre(genreId: number, region?: string): Promise<Movie[]> {
-//   // Not implemented in proxy yet
-//   return [];
-// }
+export async function getMoviesByGenre(genreId: number, region?: string): Promise<Movie[]> {
+  // Not implemented in proxy yet
+  console.log('getMoviesByGenre called with genreId:', genreId, 'region:', region);
+  return [];
+}
 
 
 export async function getTopRatedMovies(): Promise<Movie[]> {
@@ -100,9 +102,10 @@ export async function getMovieVideos(id: number): Promise<Videos> {
 }
 
 
-// export async function getSimilarMovies(id: number): Promise<Movie[]> {
-//   // Not implemented in proxy yet
-//   return [];
-// }
+export async function getSimilarMovies(id: number): Promise<Movie[]> {
+  // Not implemented in proxy yet
+  console.log('getSimilarMovies called with id:', id);
+  return [];
+}
 
 export type { Movie, MovieDetails, CastMember, Credits, Video, Videos };
